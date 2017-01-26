@@ -1,0 +1,22 @@
+PODS:
+  - AKQQManager (0.1.0):
+    - AKQQSDK
+  - AKQQSDK (0.1.0)
+
+DEPENDENCIES:
+  - AKQQManager (from `../`)
+  - AKQQSDK (from `../../AKQQSDK`)
+
+EXTERNAL SOURCES:
+  AKQQManager:
+    :path: ../
+  AKQQSDK:
+    :path: ../../AKQQSDK
+
+SPEC CHECKSUMS:
+  AKQQManager: e36206632d8e28a548500f659d13d5f3a4634c90
+  AKQQSDK: 37bb25fcc7dd561a4176550f00ef9f7c691c124f
+
+PODFILE CHECKSUM: 617e5cf821139f9ebd184e80ddac10e103894af7
+
+COCOAPODS: 1.1.1
