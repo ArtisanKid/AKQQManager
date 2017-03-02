@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4825D180080B6E05CE2CC03829445995CF7E26FE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "35778CB5680919492AC03B2E67920E22A79DE2F8" : 9223372036854775807,
+    "4825D180080B6E05CE2CC03829445995CF7E26FE" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "60DFB723-3D77-48C0-8174-C0BC8AB1EFD2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "35778CB5680919492AC03B2E67920E22A79DE2F8" : "AKQQSDK\/",
+    "4825D180080B6E05CE2CC03829445995CF7E26FE" : "AKQQManager\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AKQQManager",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Example\/AKQQManager.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:ArtisanKid\/AKQQSDK.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "35778CB5680919492AC03B2E67920E22A79DE2F8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:ArtisanKid\/AKQQManager.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4825D180080B6E05CE2CC03829445995CF7E26FE"
+    }
+  ]
+}
