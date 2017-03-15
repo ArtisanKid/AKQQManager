@@ -11,6 +11,9 @@
 
 @interface AKQQShare : NSObject
 
+@property(nonatomic, copy) NSString* title; ///<标题，最长128个字符
+@property(nonatomic, copy) NSString* detail; ///<简要描述，最长512个字符
+
 @end
 
 #pragma mark - AKQQShareText : AKQQShare
@@ -25,11 +28,16 @@
 
 @interface AKQQShareImage : AKQQShare<AKQQShareProtocol>
 
-@property(nonatomic,retain) NSString* title; ///< 标题，最长128个字符
-@property(nonatomic,retain) NSString* detail; ///<简要描述，最长512个字符
-
 @property(nonatomic, strong) UIImage *image; ///<具体数据内容，必填，最大5M字节
-@property(nonatomic, strong) UIImage* previewImage; ///<预览图像，最大1M字节
+@property(nonatomic, strong) UIImage *previewImage; ///<预览图像，最大1M字节
+
+@end
+
+#pragma mark - AKQQShareFavorImage : AKQQShareImage
+
+@interface AKQQShareFavorImage : AKQQShareImage
+
+@property (nonatomic, strong) NSArray<UIImage *> *favorImages; ///<收藏图片数组
 
 @end
 
@@ -45,9 +53,9 @@
 
 @end
 
-#pragma mark - AKQQShareObject : AKQQShare
+#pragma mark - AKQQShareURL : AKQQShare
 
-@interface AKQQShareBaseMedia : AKQQShare<AKQQShareProtocol>
+@interface AKQQShareURL : AKQQShare
 
 /**
  对象唯一ID，用于唯一标识一个多媒体内容
@@ -55,9 +63,6 @@
  不能为空，长度小于255字节
  */
 @property (nonatomic, copy) NSString *mediaID;
-
-@property(nonatomic, copy) NSString* title; ///< 标题，最长128个字符
-@property(nonatomic, copy) NSString* detail; ///<简要描述，最长512个字符
 
 //预览图像数据与预览图像URL可二选一
 @property(nonatomic, strong) UIImage *previewImage ;///<预览图像数据，最大1M字节
@@ -67,23 +72,23 @@
 
 @end
 
-#pragma mark - AKQQShareWeb : AKQQShareBaseMedia
+#pragma mark - AKQQShareWeb : AKQQShareURL
 
-@interface AKQQShareWeb : AKQQShareBaseMedia
+@interface AKQQShareWeb : AKQQShareURL<AKQQShareProtocol>
 
 @end
 
-#pragma mark - AKQQShareAudio : AKQQShareBaseMedia
+#pragma mark - AKQQShareAudio : AKQQShareURL
 
-@interface AKQQShareAudio : AKQQShareBaseMedia
+@interface AKQQShareAudio : AKQQShareURL
 
 @property (nonatomic, copy) NSString *streamURL;///<音频URL地址，最长512个字符
 
 @end
 
-#pragma mark - AKQQShareVideo : AKQQShareBaseMedia
+#pragma mark - AKQQShareVideo : AKQQShareURL
 
-@interface AKQQShareVideo : AKQQShareBaseMedia
+@interface AKQQShareVideo : AKQQShareURL<AKQQShareProtocol>
 
 @property (nonatomic, copy) NSString *streamURL;///<视频URL地址，最长512个字符
 
@@ -93,9 +98,6 @@
 
 @interface AKQQShareQZoneImage : AKQQShare<AKQQShareProtocol>
 
-@property(nonatomic, copy) NSString *title; ///< 标题，最长128个字符
-@property(nonatomic, copy) NSString *detail; ///<简要描述，最长512个字符
-
 @property(nonatomic, strong) NSArray<UIImage *> *images;///图片数组
 
 @end
@@ -103,9 +105,6 @@
 #pragma mark - AKQQShareQZoneVideo : AKQQShare
 
 @interface AKQQShareQZoneVideo : AKQQShare<AKQQShareProtocol>
-
-@property(nonatomic, copy) NSString *title; ///< 标题，最长128个字符
-@property(nonatomic, copy) NSString *detail; ///<简要描述，最长512个字符
 
 @property(nonatomic, copy) NSString *assetURL;
 

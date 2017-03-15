@@ -12,20 +12,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern const NSString * const AKQQManagerErrorKeyCode;
-extern const NSString * const AKQQManagerErrorKeyAlert;
-extern const NSString * const AKQQManagerErrorKeyDetail;
+extern const NSString * const AKQQManagerErrorCodeKey;
+extern const NSString * const AKQQManagerErrorMessageKey;
+extern const NSString * const AKQQManagerErrorDetailKey;
 
 typedef void (^AKQQManagerSuccess)();
-typedef void (^AKQQManagerLoginSuccess)(id<AKQQUserProtocol> user);
 typedef void (^AKQQManagerFailure)(NSError *error);
 
+typedef void (^AKQQManagerLoginSuccess)(id<AKQQUserProtocol> user);
+
+/**
+ SDK文档：http://wiki.open.qq.com/wiki/IOS_API%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E
+ API列表：http://wiki.open.qq.com/wiki/API%E5%88%97%E8%A1%A8
+ */
+
 @interface AKQQManager : NSObject
-
-+ (void)setAppID:(NSString *)appID secretKey:(NSString *)secretKey;
-
-//设置商家ID
-+ (void)setPartnerID:(NSString *)partnerID;
 
 /**
  标准单例模式
@@ -34,12 +35,24 @@ typedef void (^AKQQManagerFailure)(NSError *error);
  */
 + (AKQQManager *)manager;
 
+@property (class, nonatomic, assign, getter=isDebug) BOOL debug;
+
++ (void)setAppID:(NSString *)appID secretKey:(NSString *)secretKey;
+
+//设置商家ID
++ (void)setPartnerID:(NSString *)partnerID;
+
 //处理从Application回调方法获取的URL
 + (BOOL)handleOpenURL:(NSURL *)url;
 
+/**
+ 联合登录
+
+ @param success 成功的Block
+ @param failure 失败的Block
+ */
 + (void)loginSuccess:(AKQQManagerLoginSuccess)success
              failure:(AKQQManagerFailure)failure;
-
 
 /**
  分享文字，图片，视频等到QQ或者QZone
@@ -53,7 +66,6 @@ typedef void (^AKQQManagerFailure)(NSError *error);
         scene:(AKQQShareScene)scene
       success:(AKQQManagerSuccess _Nullable)success
       failure:(AKQQManagerFailure _Nullable)failure;
-
 
 /**
  支付

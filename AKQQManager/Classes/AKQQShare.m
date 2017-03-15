@@ -19,13 +19,25 @@
     return nil;
 }
 
+- (void)complete:(QQApiObject *)message {
+    if([self.title isKindOfClass:[NSString class]]
+       && self.title.length) {
+        message.title = self.title;
+    }
+    
+    if([self.detail isKindOfClass:[NSString class]]
+       && self.detail.length) {
+        message.description = self.detail;
+    }
+}
+
 - (SendMessageToQQReq *)request {
-    return [SendMessageToQQReq reqWithContent:self.message];
+    return [SendMessageToQQReq reqWithContent:[self message]];
 }
 
 @end
 
-#pragma mark - 
+#pragma mark -
 
 @implementation AKQQShareText
 
@@ -40,22 +52,66 @@
 
 - (QQApiObject *)message {
     QQApiImageObject *message = [[QQApiImageObject alloc] init];
-    message.title = self.title;
-    message.description = self.detail;
-    
-    NSData *imageData = UIImagePNGRepresentation(self.image);
-    if(imageData) {
-        imageData = UIImageJPEGRepresentation(self.image, 1.);
-    }
-    message.data = imageData;
-    
-    NSData *previewImageData = UIImagePNGRepresentation(self.previewImage);
-    if(previewImageData) {
-        previewImageData = UIImageJPEGRepresentation(self.previewImage, 1.);
-    }
-    message.previewImageData = previewImageData;
-
+    [self complete:message];
     return message;
+}
+
+- (void)complete:(QQApiImageObject *)message {
+    [super complete:message];
+    
+    if([self.image isKindOfClass:[UIImage class]]) {
+        NSData *imageData = UIImagePNGRepresentation(self.image);
+        if(!imageData.length) {
+            imageData = UIImageJPEGRepresentation(self.image, 1.);
+        }
+        if(imageData.length) {
+            message.data = imageData;
+        }
+    }
+    
+    if([self.previewImage isKindOfClass:[UIImage class]]) {
+        NSData *previewImageData = UIImagePNGRepresentation(self.previewImage);
+        if(!previewImageData.length) {
+            previewImageData = UIImageJPEGRepresentation(self.previewImage, 1.);
+        }
+        if(previewImageData.length) {
+            message.previewImageData = previewImageData;
+        }
+    }
+}
+
+@end
+
+@implementation AKQQShareFavorImage
+
+- (QQApiObject *)message {
+    QQApiImageObject *message = [[QQApiImageObject alloc] init];
+    [self complete:message];
+    return message;
+}
+
+- (void)complete:(QQApiImageObject *)message {
+    [super complete:message];
+    
+    message.cflag = kQQAPICtrlFlagQQShareFavorites;
+    
+    NSMutableArray<NSData *> *imageDatasM = [NSMutableArray array];
+    for(UIImage *image in self.favorImages) {
+        if(![image isKindOfClass:[UIImage class]]) {
+            continue;
+        }
+        
+        NSData *imageData = UIImagePNGRepresentation(image);
+        if(!imageData.length) {
+            imageData = UIImageJPEGRepresentation(image, 1.);
+        }
+        if(!imageData.length) {
+            continue;
+        }
+        
+        [imageDatasM addObject:imageData];
+    }
+    message.imageDataArray = [imageDatasM copy];
 }
 
 @end
@@ -64,20 +120,7 @@
 
 - (QQApiObject *)message {
     QQApiGroupTribeImageObject *message = [[QQApiGroupTribeImageObject alloc] init];
-    message.title = self.title;
-    message.description = self.detail;
-    
-    NSData *imageData = UIImagePNGRepresentation(self.image);
-    if(imageData) {
-        imageData = UIImageJPEGRepresentation(self.image, 1.);
-    }
-    message.data = imageData;
-    
-    NSData *previewImageData = UIImagePNGRepresentation(self.previewImage);
-    if(previewImageData) {
-        previewImageData = UIImageJPEGRepresentation(self.previewImage, 1.);
-    }
-    message.previewImageData = previewImageData;
+    [super complete:message];
     
     message.bid = self.groupBlogID;
     message.bname = self.groupBlogName;
@@ -87,46 +130,36 @@
 
 @end
 
-@implementation AKQQShareBaseMedia
+@implementation AKQQShareURL
 
-- (QQApiObject *)messageWithType:(QQApiURLTargetType)type {
-    QQApiURLObject *message = nil;
-    switch (type) {
-        case QQApiURLTargetTypeNews: {
-            message = [[QQApiNewsObject alloc] init];
-            break;
-        }
-        case QQApiURLTargetTypeAudio: {
-            message = [[QQApiAudioObject alloc] init];
-            break;
-        }
-        case QQApiURLTargetTypeVideo: {
-            message = [[QQApiVideoObject alloc] init];
-            break;
-        }
-        default:
-            break;
+- (QQApiObject *)message {
+    QQApiURLObject *message = [[QQApiURLObject alloc] init];
+    [self complete:message];
+    return message;
+}
+
+- (void)complete:(QQApiURLObject *)message {
+    [super complete:message];
+    
+    if([self.URL isKindOfClass:[NSString class]]
+       && self.URL.length) {
+        message.url = [NSURL URLWithString:self.URL];
     }
     
-    message.title = self.title;
-    message.description = self.detail;
-    
-    if(self.previewImage) {
+    if([self.previewImage isKindOfClass:[UIImage class]]) {
         NSData *previewImageData = UIImagePNGRepresentation(self.previewImage);
-        if(previewImageData) {
+        if(!previewImageData.length) {
             previewImageData = UIImageJPEGRepresentation(self.previewImage, 1.);
         }
-        message.previewImageData = previewImageData;
+        if(previewImageData.length) {
+            message.previewImageData = previewImageData;
+        }
     }
     
-    if(self.previewImageURL.length) {
-        message.previewImageURL = self.previewImageURL;
+    if([self.previewImageURL isKindOfClass:[NSString class]]
+       && self.previewImageURL.length) {
+        message.previewImageURL = [NSURL URLWithString:self.previewImageURL];
     }
-    
-    message.targetContentType = type;
-    message.url = self.URL;
-    
-    return message;
 }
 
 @end
@@ -134,7 +167,9 @@
 @implementation AKQQShareWeb
 
 - (QQApiObject *)message {
-    return [super messageWithType:QQApiURLTargetTypeNews];
+    QQApiNewsObject *message = [[QQApiNewsObject alloc] init];
+    [super complete:message];
+    return message;
 }
 
 @end
@@ -142,8 +177,11 @@
 @implementation AKQQShareAudio
 
 - (QQApiObject *)message {
-    QQApiAudioObject *message = [super messageWithType:QQApiURLTargetTypeAudio];
-    if(self.streamURL.length) {
+    QQApiAudioObject *message = [[QQApiAudioObject alloc] init];
+    [super complete:message];
+    
+    if([self.streamURL isKindOfClass:[NSString class]]
+       && self.streamURL.length) {
         message.flashURL = [NSURL URLWithString:self.streamURL];
     }
     return message;
@@ -154,8 +192,11 @@
 @implementation AKQQShareVideo
 
 - (QQApiObject *)message {
-    QQApiVideoObject *message = [super messageWithType:QQApiURLTargetTypeVideo];
-    if(self.streamURL.length) {
+    QQApiVideoObject *message = [[QQApiVideoObject alloc] init];
+    [super complete:message];
+    
+    if([self.streamURL isKindOfClass:[NSString class]]
+       && self.streamURL.length) {
         message.flashURL = [NSURL URLWithString:self.streamURL];
     }
     return message;
@@ -169,25 +210,30 @@
 
 - (QQApiObject *)message {
     QQApiImageArrayForQZoneObject *message = [[QQApiImageArrayForQZoneObject alloc] init];
-    message.title = self.title;
-    message.description = self.detail;
+    [self complete:message];
+    return message;
+}
+
+- (void)complete:(QQApiImageArrayForQZoneObject *)message {
+    [super complete:message];
     
-    NSMutableArray<NSData *> *imageDatas = [NSMutableArray array];
+    NSMutableArray<NSData *> *imageDatasM = [NSMutableArray array];
     for(UIImage *image in self.images) {
-        NSData *imageData = UIImagePNGRepresentation(image);
-        if(imageData) {
-            imageData = UIImageJPEGRepresentation(image, 1.);
-        }
-        
-        if(!imageData) {
+        if(![image isKindOfClass:[UIImage class]]) {
             continue;
         }
         
-        [imageDatas addObject:imageData];
+        NSData *imageData = UIImagePNGRepresentation(image);
+        if(!imageData.length) {
+            imageData = UIImageJPEGRepresentation(image, 1.);
+        }
+        if(!imageData.length) {
+            continue;
+        }
+        
+        [imageDatasM addObject:imageData];
     }
-    message.imageDataArray = [imageDatas copy];
-    
-    return message;
+    message.imageDataArray = [imageDatasM copy];
 }
 
 @end
@@ -196,12 +242,17 @@
 
 - (QQApiObject *)message {
     QQApiVideoForQZoneObject *message = [[QQApiVideoForQZoneObject alloc] init];
-    message.title = self.title;
-    message.description = self.detail;
-    
-    message.assetURL = self.assetURL;
-    
+    [self complete:message];
     return message;
+}
+
+- (void)complete:(QQApiVideoForQZoneObject *)message {
+    [super complete:message];
+    
+    if([self.assetURL isKindOfClass:[NSString class]]
+       && self.assetURL.length) {
+        message.assetURL = self.assetURL;
+    }
 }
 
 @end

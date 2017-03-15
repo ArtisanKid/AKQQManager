@@ -17,5 +17,7 @@
 @property (nonatomic, copy) NSString *unionID;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *portrait;/**<头像*/
+@property (nonatomic, copy) NSString *mobile;/**<电话*/
+@property (nonatomic, copy) NSString *motto;/**<座右铭*/
 
 @end
