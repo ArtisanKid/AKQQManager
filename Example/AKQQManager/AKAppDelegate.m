@@ -7,6 +7,7 @@
 //
 
 #import "AKAppDelegate.h"
+#import <AKQQManager/AKQQManager.h>
 
 @implementation AKAppDelegate
 

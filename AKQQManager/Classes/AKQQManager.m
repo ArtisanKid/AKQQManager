@@ -7,8 +7,8 @@
 //
 
 #import "AKQQManager.h"
-#import "TencentOAuth.h"
-#import "QQApiInterface.h"
+#import <AKQQSDK/TencentOAuth.h>
+#import <AKQQSDK/QQApiInterface.h>
 #import "AKQQManagerMacro.h"
 #import "AKQQUser.h"
 
@@ -407,7 +407,7 @@ typedef NS_ENUM(NSUInteger, AKQQMessageType) {
     NSString *portrait = response.jsonResponse[@"figureurl_qq_2"];
     if(![portrait isKindOfClass:[NSString class]]
        || !portrait.length) {
-        portrait = response.jsonResponse[@"figureurl_qq_1"];;
+        portrait = response.jsonResponse[@"figureurl_qq_1"];
     }
     if([portrait isKindOfClass:[NSString class]]
        && portrait.length) {

@@ -9,10 +9,8 @@
 #ifndef AKQQManagerMacro_h
 #define AKQQManagerMacro_h
 
-static BOOL AKQQManagerLogState = YES;
-
 #if DEBUG
-    #define AKQQManagerLog(_Format, ...) !AKQQManagerLogState ? : NSLog((@"\n[File:%s]\n[Line:%d]\n[Function:%s]\n" _Format @"\n"), __FILE__, __LINE__, __PRETTY_FUNCTION__, ## __VA_ARGS__);
+    #define AKQQManagerLog(_Format, ...)  NSLog((@"\n[File:%s]\n[Line:%d]\n[Function:%s]\n" _Format), __FILE__, __LINE__, __PRETTY_FUNCTION__, ## __VA_ARGS__);printf("\n");
 #else
     #define AKQQManagerLog(_Format, ...)
 #endif

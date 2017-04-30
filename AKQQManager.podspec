@@ -37,8 +37,9 @@ TODO: Add long description of the pod here.
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
 
+  s.frameworks = 'CoreGraphics', 'CoreTelephony', 'Security', 'SystemConfiguration'
+  s.libraries = 'c++', 'iconv', 'sqlite3', 'z'
   s.dependency 'AKQQSDK'
 
   #静态库传递详细资料查看这里 http://luoxianming.cn/2016/03/27/CocoaPods/
@@ -49,8 +50,7 @@ TODO: Add long description of the pod here.
   #end
 
   s.pod_target_xcconfig = {
-#'OTHER_LDFLAGS' => '$(inherited) -undefined dynamic_lookup',
-#'ENABLE_BITCODE' => 'NO'
-    'MACH_O_TYPE' => 'staticlib'
+    'OTHER_LDFLAGS' => '-framework "TencentOpenAPI"',
+    'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/AKQQSDK/**'
   }
 end

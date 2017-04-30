@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QQApiInterfaceObject.h"
+#import <AKQQSDK/QQApiInterfaceObject.h>
 
 typedef NS_ENUM(NSUInteger, AKQQShareScene) {
     AKQQShareSceneNone = 0,
