@@ -504,6 +504,20 @@ typedef NS_ENUM(NSUInteger, AKQQMessageType) {
     }
 }
 
+/**
+ 处理来至QQ的请求
+ */
+- (void)onReq:(QQBaseReq *)req {
+    
+}
+
+/**
+ 处理QQ在线状态的回调
+ */
+- (void)isOnlineResponse:(NSDictionary *)response {
+    
+}
+
 #pragma mark- Private Method
 /*
  URLREQUEST_SUCCEED = 0, //网络请求成功发送至服务器，并且服务器返回数据格式正确。这里包括所请求业务操作失败的情况，例如没有授权等原因导致
@@ -612,6 +626,7 @@ typedef NS_ENUM(NSUInteger, AKQQMessageType) {
         case EQQAPIVERSIONNEEDUPDATE: alert = @"当前QQ版本太低，需要更新至新版本才可以支持"; break;
         default: break;
     }
+    return alert;
 }
 
 + (NSString *)identifier {

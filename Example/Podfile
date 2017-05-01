@@ -3,8 +3,8 @@ use_frameworks!
 target 'AKQQManager_Example' do
   pod 'AKQQManager', :path => '../'
   
-  #pod 'AKQQSDK', :git => 'git@github.com:ArtisanKid/AKQQSDK.git'
-  pod 'AKQQSDK', :path => '../../AKQQSDK'
+  pod 'AKQQSDK', :git => 'git@github.com:ArtisanKid/AKQQSDK.git'
+  #pod 'AKQQSDK', :path => '../../AKQQSDK'
   
   pre_install do |installer|
       # workaround for https://github.com/CocoaPods/CocoaPods/issues/3289

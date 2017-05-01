@@ -5,18 +5,23 @@ PODS:
 
 DEPENDENCIES:
   - AKQQManager (from `../`)
-  - AKQQSDK (from `../../AKQQSDK`)
+  - AKQQSDK (from `git@github.com:ArtisanKid/AKQQSDK.git`)
 
 EXTERNAL SOURCES:
   AKQQManager:
     :path: ../
   AKQQSDK:
-    :path: ../../AKQQSDK
+    :git: git@github.com:ArtisanKid/AKQQSDK.git
+
+CHECKOUT OPTIONS:
+  AKQQSDK:
+    :commit: f07b74ecaaa547d6da66835cd08e1824302f1f60
+    :git: git@github.com:ArtisanKid/AKQQSDK.git
 
 SPEC CHECKSUMS:
-  AKQQManager: 9787e33b56cde70947a42cad7b11b9ebcb147875
-  AKQQSDK: 4cf6a078d0e2d120568cc3b6425ac35c922a4b16
+  AKQQManager: dea3c4f070c9b7615851e07f2ba0bc5983e2614a
+  AKQQSDK: 7e50541b5b8461ad9188052988daf79105edd4db
 
-PODFILE CHECKSUM: 617e5cf821139f9ebd184e80ddac10e103894af7
+PODFILE CHECKSUM: 11a11916373952df8d2e05e8d4df8827c5512bf9
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

@@ -14,6 +14,8 @@
 @property(nonatomic, copy) NSString* title; ///<标题，最长128个字符
 @property(nonatomic, copy) NSString* detail; ///<简要描述，最长512个字符
 
+- (SendMessageToQQReq *)request;
+
 @end
 
 #pragma mark - AKQQShareText : AKQQShare
